@@ -37,6 +37,10 @@ export default {
 
       console.log(actualToken);
       store.validate(actualToken);
+
+      setTimeout(() => {
+        store.fetchFollows();
+      }, 500);
     },
   },
   computed: {
