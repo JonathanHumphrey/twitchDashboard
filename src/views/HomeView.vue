@@ -1,8 +1,6 @@
 <template>
   <main>
-    <div class="init-user">
-      <Initialize />
-    </div>
+    <div class="init-user"></div>
   </main>
 </template>
 

@@ -1,18 +1,19 @@
 import { defineStore } from 'pinia'
 import moment from 'moment'
+import { stringifyQuery } from 'vue-router';
 
 export const twitchStore = defineStore({
     id: 'twitchStore',
     state: () => ({
-        User: {
-            username: '',
-            userId: 0,
-            valid: false,
-            token: ''
+      User: {
+        username: '',
+        userId: 0,
+        valid: false,
+        token: ''
       },
       Followers: {
         total: 0,
-        followerArr: {},
+        followerArr: [],
         pagination: '',
         URL: ''
       }
@@ -59,7 +60,7 @@ export const twitchStore = defineStore({
         )
           .then(
             data => {
-              const follows : object[] = []
+              const follows: any[] = []
 
               for (const key in data.data) {
                 const date = data.data[key].followed_at
@@ -79,8 +80,10 @@ export const twitchStore = defineStore({
               
               this.Followers.total = data.total
               this.Followers.URL = followUrl + data.pagination.cursor
-              this.Followers.followerArr = follows
+              this.Followers.followerArr.unshift(follows) 
               this.Followers.pagination = data.pagination.cursor
+
+              console.log(this.Followers.followerArr[0])
               
           }
         )
